@@ -1,39 +1,31 @@
-# Importamos la libreria pygame
+# importamos la librerìa pygame
 import pygame
-import random
+import random 
 
-# Inicializamos los modulos de pygame
+# inicializamos los mòdulos de pygame
 pygame.init()
 
-# Establecer titulo a la ventana
+#  Establecer tìtulo a la ventana
 pygame.display.set_caption("Surface")
 
-# Establecemos las dimensones de la ventana
+# Establecemos las dimensiones de la ventana
 ventana = pygame.display.set_mode((400,400))
 
-# definir un color
-azul = random.randint(0,256)
-amarillo = random.randint(0,256)
-rojo = random.randint(0,256)
-color_aleatorio=((azul,amarillo,rojo))
+# Funciòn para generar un color aleatorio
+def generar_color_aleatorio():
+    return (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
-# Crear una superficie
+# Generamos un color aleatorio
+color_aleatorio = generar_color_aleatorio()
 
-color_aleatorio_aleatoria = pygame.Surface((200,200))
+# crear una superficie
+superficie_aleatoria = pygame.Surface((300,300))
 
-# Rellenamos la superficie
-color_aleatorio.fill(azul, amarillo, rojo)
+# Rellenamos la superficie de un color aleatorio
+superficie_aleatoria.fill(color_aleatorio)
 
-# Inserto la superficie de la ventana
-ventana.blit(color_aleatorio, (100,100))
+# Inserto o muevo la superficie de la ventana 
+ventana.blit(superficie_aleatoria, (0,0))
 
-# Actualiza la visualizacion de la ventana
+# Actualiza la visualizaciòn de la ventana 
 pygame.display.flip()
-
-# Bucle del juego
-while True:
-    event = pygame.event.wait()
-    if event.type == pygame.QUIT:
-        break
-
-pygame.quit()
