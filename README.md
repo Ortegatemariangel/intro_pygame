@@ -85,8 +85,6 @@ ventana.blit(superficie_amarillo, (0,0))
 ventana.blit(superficie_azul, (0,200))
 ventana.blit(superficie_rojo, (0,300))
 
-
-
 # Actualiza la visualizacion de la ventana 
 pygame.display.flip()
 
