@@ -39,7 +39,7 @@ while True:
     nombre = fuente_arial.render("Mariangel Ortegate", True, azul)
     ventana.blit(nombre, (0, 470))
 
-    pygame.draw.rect(ventana, verde, (50, 110,375,320 ),2)
+    pygame.draw.rect(ventana, azul, (50, 110,375,320 ),2)
 
     for i in range(100):
         x1 = random.randint(50, 420)
