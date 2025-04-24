@@ -176,3 +176,123 @@ while True:
 - La nocion de group permite agrupar los objetos del mismo tipo. Ejemplo: todos los soldados de un ejercito lo que se entiende como una coleccion de instancias de una clase Soldado.
 
 - Un determinado procesamiento se puede aplicara un conjunto o subconjunto de sprites. Ejemplo: cambiar el color de todos los enemigos o hacer invisibles algunos objetos 
+
+## ¿Qué es un Sprite?
+- Un Sprite es una representación gráfica de un objeto dentro de un juego. Puede moverse, detectar colisiones y agruparse con otros sprites para un mejor manejo.
+   - ```pygame.sprite.Sprite``` es una clase base en pygame que facilita estas funcionalidades.
+
+### ¿Para qué se usa un sprite?
+
+- Mostrar personajes u objetos en pantalla
+Ej: el jugador, enemigos, balas, monedas, obstáculos, etc.
+
+- Controlar posición y movimiento
+
+- Un sprite tiene un atributo .rect que define dónde está en la pantalla y qué espacio ocupa. Puedes moverlo cambiando .rect.x o .rect.y.
+
+- Detectar colisiones
+
+- Pygame tiene funciones como pygame.sprite.collide_rect() o pygame.sprite.groupcollide() que permiten detectar si dos sprites se están tocando.
+
+- Actualizar su estado
+
+- Puedes crear un método .update() que cambia su comportamiento en cada frame (por ejemplo, moverse, animarse, seguir al jugador, etc.).
+
+- Organizar lógicamente los elementos del juego
+
+- Se pueden agrupar sprites en Groups para manejar muchos objetos a la vez (actualizarlos, dibujarlos, detectar colisiones en lote, etc.).
+
+### Ejemplo de juego
+- Importamos la libreria necesaria
+import pygame
+import random
+- Inicializamos la ventana y le ponemos nombre y tamaño
+
+pygame.init()
+pantalla = pygame.display.set_mode((800, 600))
+pygame.display.set_caption("juego de sprite")
+reloj = pygame.time.Clock()
+
+- Definimos colores
+
+BLANCO = (255, 255, 255)
+NEGRO = (0, 0, 0)
+AZUL = (0, 0, 255)
+ROJO = (255, 0, 0)
+
+- Definimos el jugador
+
+class Jugador(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.Surface((50, 50))
+        self.image.fill(AZUL)
+        self.rect = self.image.get_rect(center=(400, 550))
+
+    def update(self):
+        teclas = pygame.key.get_pressed()
+        if teclas[pygame.K_LEFT] and self.rect.left > 0:
+            self.rect.x -= 5
+        if teclas[pygame.K_RIGHT] and self.rect.right < 800:
+            self.rect.x += 5
+- Explicacion
+
+- class Jugador(pygame.sprite.Sprite):
+
+     - Aquí definimos una clase llamada Jugador, que hereda de pygame.sprite.Sprite. Esto significa que Jugador es un tipo de sprite en Pygame y tiene todas las capacidades de un sprite, como la posición (rect), el dibujo en pantalla (image), etc.
+
+- def __init__(self):
+
+     - El constructor de la clase Jugador, se llama cuando creas una nueva instancia de Jugador.
+
+- self.image = pygame.Surface((50, 50))
+
+     - Creamos una superficie cuadrada de 50x50 píxeles para representar al jugador.
+
+- self.image.fill(AZUL)
+
+     - Llenamos la superficie con el color azul.
+
+- self.rect = self.image.get_rect(center=(400, 550))
+
+     - Obtenemos el rectángulo (rect) de la superficie del jugador, y lo colocamos en el centro de las coordenadas (400, 550).
+
+- def update(self):
+
+     - Este método se llama en cada iteración del bucle del juego. Se usa para actualizar la lógica del jugador, como el movimiento.
+
+- teclas = pygame.key.get_pressed()
+
+     - Obtiene el estado de todas las teclas (si están presionadas o no).
+
+- if teclas[pygame.K_LEFT] and self.rect.left > 0:
+
+     - Si la tecla de flecha izquierda está presionada y el jugador no está fuera del borde izquierdo, mueve al jugador 5 píxeles hacia la izquierda.
+
+- if teclas[pygame.K_RIGHT] and self.rect.right < 800:
+
+     - Similar, pero para mover el jugador a la derecha si la tecla de flecha derecha está presionada y no sale del borde derecho de la pantalla (800 píxeles).
+
+
+
+## Sprite group
+
+- El uso de ```pygame.sprite.Group``` es una de las características más poderosas de Pygame para trabajar con múltiples sprites al mismo tiempo. Te permite organizar, actualizar y dibujar muchos sprites de forma eficiente y sencilla.
+
+### Usos de sprite group
+
+- Actualizar todos los sprites a la vez con .update()
+
+- Dibujar todos los sprites en pantalla con .draw(superficie)
+
+- Detectar colisiones entre grupos o dentro de ellos
+
+## Ejemplo de juego
+
+- Para este juego usamos el mismo codigo con la diferencia que se añade sprite groups lo cual permite que hayan varios enemigos al mismo tiempo
+
+- Se usan para organizar y manejar múltiples sprites fácilmente. Group permite actualizar y dibujar todos los sprites a la vez.
+
+todos_los_sprites = pygame.sprite.Group()
+enemigos = pygame.sprite.Group()
+balas = pygame.sprite.Group()
